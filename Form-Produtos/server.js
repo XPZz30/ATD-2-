@@ -4,8 +4,9 @@ const app = express();
 const PORT = 5000;
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'form.html'));
+    res.sendFile(path.join(__dirname, 'form.html'));
 });
+
 app.post('/cadastro', (req, res) => {
     let body = '';
     req.on('data', chunk => {
@@ -18,17 +19,16 @@ app.post('/cadastro', (req, res) => {
             dados[chave] = decodeURIComponent(valor.replace(/\+/g, ' '));
         });
         res.send(`
-      <h2>Produto cadastrado com sucesso!</h2>
-      <p><strong>Nome:</strong> ${dados.nome}</p>
-      <p><strong>Preço:</strong> R$ ${dados.preco}</p>
-      <a href="/">Voltar</a>
-    `);
+            <h2>Produto cadastrado com sucesso!</h2>
+            <p><strong>Nome:</strong> ${dados.nome}</p>
+            <p><strong>Preço:</strong> R$ ${dados.preco}</p>
+            <a href="/">Voltar</a>
+        `);
 
         console.log('Dados recebidos:', dados);
     });
 });
 
-// Iniciar servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
